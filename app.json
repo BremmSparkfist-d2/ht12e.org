@@ -13,5 +13,61 @@
     "author": {
         "name": "Ramon Bertrand",
         "email": "ramon@nebulae.nl"
-    }
+    },
+	"images": {
+        "large": "/assets/images/large.png",
+        "small": "/assets/images/small.png"
+    },
+	"drivers": [
+		{
+			"id": "my_driver",
+			"name": {
+                "en": "My Driver"
+            },
+			"images" : {
+				"large": "./drivers/my_driver/assets/images/large.jpg",
+				"small": "./drivers/my_driver/assets/images/small.jpg"	
+			},
+            "class": "socket",
+            "capabilities": [ "onoff" ],
+            "pair": [
+                {
+                    "id": "list_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_devices"
+                    }
+                },
+                {
+                    "id": "add_devices",
+                    "template": "add_devices"
+                }
+			]
+		}
+	],
+	"signals" : {
+		"433" : {
+			"my_signal" : {
+				"sof" : [470],
+				"eof" : [],
+				"words" : [
+					[470, 700]
+					,
+					[700, 470]
+				],
+				"interval" : 14600,
+				"repetitions" : 10,
+				"sensitivity" : 0.5,
+				"minimalLength" : 12,
+				"maximalLength" : 13,
+				"txOnly" : true,
+				"cmds" : {
+					"ON" : [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 ]
+				}
+			}
+		}
+	},
+	"permissions" : [
+		"homey:wireless:433"
+	]
 }
