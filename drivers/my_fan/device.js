@@ -9,8 +9,9 @@ class MyDevice extends Homey.Device {
     onInit() {
 		this.log('onInit');
 		
-		this.registerCapabilityListener('button', this.onCapabilityOnoff.bind(this));
-	
+		this.registerCapabilityListener('dim', this.onCapabilityOnoff.bind(this));
+		
+		this.setCapabilityValue('dim', 0);
 	}
 
     // this method is called when the Device is added
@@ -29,10 +30,25 @@ class MyDevice extends Homey.Device {
         // ... set value to real device
 		let mySignal = new Homey.Signal433('my_signal');
 		
-		console.log('toggle fan light');
 		mySignal.register().then(() => {
-
-			mySignal.cmd('Light');
+			
+			if (value == 0) {
+				mySignal.cmd('Fan_Off');
+				this.log('fan off');
+			} else if (value == 1) {
+				mySignal.cmd('Fan_Low');
+				this.log('fan low');
+			} else if (value == 2) {
+				mySignal.cmd('Fan_Medium');
+				this.log('fan medium');
+			} else if (value == 3) {
+				mySignal.cmd('Fan_High');
+				this.log('fan high');
+			} else {
+				throw 'error';
+			}
+			
+			this.setCapabilityValue('dim', value);
 				
 		}).catch( this.error );
     }

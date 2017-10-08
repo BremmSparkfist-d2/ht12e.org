@@ -3,31 +3,23 @@
 const Homey = require('homey');
 
 class MyDriver extends Homey.Driver {
-	
+
     onPairListDevices( data, callback ){
 
 		
 	
         callback( null, [
             {
-                name: 'My Light',
+                name: 'My Fan',
                 data: {
-                    id: 'my_driver'
+                    id: 'my_fan'
                 }
             }
         ]);
-		
-		
 
     }
 	
-	onGetState( data, callback ){
-		console.log('...!!!...');
-	}
-	
-	get () {
-		console.log('...!!!...');
-	}
+
 }
 
 module.exports = MyDriver;

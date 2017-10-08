@@ -1,14 +1,14 @@
 {
-    "id": "ht12e.org",
+    "id": "ht12e-dev.org",
     "sdk": 2,
     "name": {
-        "en": "HT12E"
+        "en": "HT12E-Dev"
     },
     "description": {
         "en": "Adds support for MyBrand devices."
     },
     "category": "climate",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "compatibility": ">=1.5.0",
     "author": {
         "name": "Ramon Bertrand",
@@ -22,14 +22,51 @@
 		{
 			"id": "my_driver",
 			"name": {
-                "en": "My Driver"
+                "en": "Fan light",
+				"nl": "Plafondverlichting"
             },
 			"images" : {
 				"large": "./drivers/my_driver/assets/images/large.jpg",
 				"small": "./drivers/my_driver/assets/images/small.jpg"	
 			},
-            "class": "socket",
-            "capabilities": [ "onoff" ],
+            "class": "button",
+            "capabilities": [ "button" ],
+            "pair": [
+                {
+                    "id": "list_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_devices"
+                    }
+                },
+                {
+                    "id": "add_devices",
+                    "template": "add_devices"
+                }
+			]
+		},
+		{
+			"id": "my_fan",
+			"name": {
+                "en": "Fan",
+				"nl": "Ventilator"
+            },
+			"images" : {
+				"large": "./drivers/my_fan/assets/images/large.jpg",
+				"small": "./drivers/my_fan/assets/images/small.jpg"	
+			},
+            "class": "fan",
+            "capabilities": [ "dim" ],
+			"capabilitiesOptions": {
+				"dim": {
+					"title": {
+						"en": "Fan speed"
+					},
+					"min": 0,
+					"max": 3,
+					"step": 1
+				}
+			},
             "pair": [
                 {
                     "id": "list_devices",
@@ -62,7 +99,13 @@
 				"maximalLength" : 13,
 				"txOnly" : true,
 				"cmds" : {
-					"ON" : [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 ]
+					"Light" : 			[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 ],
+					"Fan_Low" :			[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1 ],
+					"Fan_Off_3hrs" : 	[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 ],
+					"Fan_Off" : 		[ 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 ],
+					"Fan_Off_6hrs" : 	[ 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 ],
+					"Fan_Medium" : 		[ 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 ],
+					"Fan_High" : 		[ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1 ]
 				}
 			}
 		}
