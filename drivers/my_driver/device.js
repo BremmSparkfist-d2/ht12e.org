@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const fanState = 0;
 
 class MyDevice extends Homey.Device {
 
@@ -24,7 +23,7 @@ class MyDevice extends Homey.Device {
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
-    onCapabilityOnoff( value, opts, callback ) {
+    async onCapabilityOnoff( value, opts, callback ) {
 
         // ... set value to real device
 		let mySignal = new Homey.Signal433('my_signal');

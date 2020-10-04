@@ -6,8 +6,6 @@ class MyDriver extends Homey.Driver {
 
     onPairListDevices( data, callback ){
 
-		
-	
         callback( null, [
             {
                 name: 'My Fan',
