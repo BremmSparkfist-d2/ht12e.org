@@ -52,7 +52,7 @@
                 "small": "./drivers/my_fan/assets/images/small.jpg"
             },
             "class": "fan",
-            "capabilities": ["dim"],
+            "capabilities": ["onoff", "dim"],
             "capabilitiesOptions": {
                 "dim": {
                     "title": {

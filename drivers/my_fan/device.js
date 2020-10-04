@@ -9,9 +9,10 @@ class MyDevice extends Homey.Device {
     onInit() {
 		this.log('onInit');
 		
-		this.registerCapabilityListener('dim', this.onCapabilityOnoff.bind(this));
+		this.registerCapabilityListener('onoff', this.onCapabilityDimAsync.bind(this));
+		this.registerCapabilityListener('dim', this.onCapabilityOnOffAsync.bind(this));
 		
-		this.setCapabilityValue('dim', 0);
+		//this.setCapabilityValue('dim', 0).catch(this.error);
 	}
 
     // this method is called when the Device is added
@@ -25,7 +26,7 @@ class MyDevice extends Homey.Device {
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
-    async onCapabilityOnoff( value, opts, callback ) {
+    async onCapabilityDimAsync( value, opts, callback ) {
 
         // ... set value to real device
 		let mySignal = new Homey.Signal433('my_signal');
@@ -48,7 +49,21 @@ class MyDevice extends Homey.Device {
 				throw 'error';
 			}
 			
-			this.setCapabilityValue('dim', value);
+			//this.setCapabilityValue('dim', value).catch(this.error);
+				
+		}).catch( this.error );
+    }
+
+	async onCapabilityOnOffAsync( value, opts, callback ) {
+
+        // ... set value to real device
+		let mySignal = new Homey.Signal433('my_signal');
+		
+		mySignal.register().then(() => {
+			
+			mySignal.cmd('Fan_Off');
+			
+			//this.setCapabilityValue('dim', 0);
 				
 		}).catch( this.error );
     }
