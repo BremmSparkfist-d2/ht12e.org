@@ -10,24 +10,14 @@ class MyDriver extends Homey.Driver {
 	
         callback( null, [
             {
-                name: 'My Light',
+                name: 'Ceiling Light',
                 data: {
                     id: 'my_driver'
                 }
             }
         ]);
-		
-		
 
     }
-	
-	onGetState( data, callback ){
-		console.log('...!!!...');
-	}
-	
-	get () {
-		console.log('...!!!...');
-	}
 }
 
 module.exports = MyDriver;

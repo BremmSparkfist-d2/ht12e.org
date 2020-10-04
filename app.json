@@ -1,8 +1,8 @@
 {
-    "id": "ht12e-dev.org",
+    "id": "nl.nebulae.fan",
     "sdk": 2,
     "name": {
-        "en": "HT12E-Dev"
+        "en": "Nebulae Fan"
     },
     "description": {
         "en": "Adds support for MyBrand devices."
