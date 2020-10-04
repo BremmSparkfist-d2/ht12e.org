@@ -67,55 +67,73 @@
                     "id": "list_devices",
                     "template": "list_devices",
                     "navigation": {
-                        "next": "add_devices"
+                        "next": "pincode"
                     }
                 }, {
                     "id": "add_devices",
                     "template": "add_devices",
-					"navigation": {
-                        "next": "pincode"
+                    "navigation": {
+                        "next": "done"
                     }
                 }, {
                     "id": "pincode",
                     "template": "pincode",
-					"navigation": {
-                        "next": "done"
-					}
+                    "navigation": {
+                        "next": "add_devices"
+                    }
                 }, {
-					"id": "done",
-					"template": "done"
-				}
+                    "id": "done",
+                    "template": "done"
+                }
+            ],
+            "settings": [{
+                "type": "group",
+                "label": {
+                    "en": "General settings"
+                },
+                "children": [{
+                        "id": "code",
+                        "type": "text",
+                        "label": {
+                            "en": "Code"
+                        },
+                        "value": "Text value 1",
+                        "hint": {
+                            "en": "If needed, add an additional description to explain this setting."
+                        }
+                    }
+                ]
+            }],
+            "signals": {
+                "433": {
+                    "my_signal": {
+                        "sof": [470],
+                        "eof": [],
+                        "words": [
+                            [470, 700],
+                            [700, 470]
+                        ],
+                        "interval": 14600,
+                        "repetitions": 10,
+                        "sensitivity": 0.5,
+                        "minimalLength": 12,
+                        "maximalLength": 13,
+                        "txOnly": true,
+                        "cmds": {
+                            "Light": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+                            "Fan_Low": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+                            "Fan_Off_3hrs": [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+                            "Fan_Off": [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+                            "Fan_Off_6hrs": [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+                            "Fan_Medium": [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+                            "Fan_High": [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1]
+                        }
+                    }
+                }
+            },
+            "permissions": [
+                "homey:wireless:433"
             ]
         }
-    ],
-    "signals": {
-        "433": {
-            "my_signal": {
-                "sof": [470],
-                "eof": [],
-                "words": [
-                    [470, 700],
-                    [700, 470]
-                ],
-                "interval": 14600,
-                "repetitions": 10,
-                "sensitivity": 0.5,
-                "minimalLength": 12,
-                "maximalLength": 13,
-                "txOnly": true,
-                "cmds": {
-                    "Light": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-                    "Fan_Low": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-                    "Fan_Off_3hrs": [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
-                    "Fan_Off": [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
-                    "Fan_Off_6hrs": [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
-                    "Fan_Medium": [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-                    "Fan_High": [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1]
-                }
-            }
-        }
-    },
-    "permissions": [
-        "homey:wireless:433"
     ]
 }

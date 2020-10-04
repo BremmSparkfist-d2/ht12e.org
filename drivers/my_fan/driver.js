@@ -3,7 +3,7 @@
 const Homey = require('homey');
 
 class MyDriver extends Homey.Driver {
-
+	
     onPairListDevices( data, callback ){
 
         callback( null, [
@@ -29,8 +29,7 @@ class MyDriver extends Homey.Driver {
                     id: 'my_fan'
                 }
             }
-        ]);
-	  
+			]);
 		});
 	
 		socket.on('pincode', ( pincode, callback ) => {
@@ -38,9 +37,9 @@ class MyDriver extends Homey.Driver {
 			this.log('pincode called');
 			this.log(pincode);
 			
-			if( pincode === ['1', '2', '3', '4'] ) {
+			if( pincode[0] === '1' ) {
 				this.log('pincode correct')
-					callback( null, true );
+				callback( null, true );
 			} else {
 				this.log('pincode false')
 				callback( null, false );
