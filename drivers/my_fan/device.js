@@ -97,6 +97,7 @@ class MyDevice extends Homey.Device {
 
 		}).catch( this.error );
     }
+	
 }
 
 module.exports = MyDevice;

@@ -71,8 +71,20 @@
                     }
                 }, {
                     "id": "add_devices",
-                    "template": "add_devices"
-                }
+                    "template": "add_devices",
+					"navigation": {
+                        "next": "pincode"
+                    }
+                }, {
+                    "id": "pincode",
+                    "template": "pincode",
+					"navigation": {
+                        "next": "done"
+					}
+                }, {
+					"id": "done",
+					"template": "done"
+				}
             ]
         }
     ],
