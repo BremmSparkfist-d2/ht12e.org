@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const fanState = 0;
 
 class MyDevice extends Homey.Device {
 
@@ -9,10 +8,13 @@ class MyDevice extends Homey.Device {
     onInit() {
 		this.log('onInit');
 		
-		this.registerCapabilityListener('onoff', this.onCapabilityDimAsync.bind(this));
-		this.registerCapabilityListener('dim', this.onCapabilityOnOffAsync.bind(this));
-		
-		//this.setCapabilityValue('dim', 0).catch(this.error);
+		//this.registerCapabilityListener('onoff', this.onCapabilityDimAsync.bind(this));
+		//this.registerCapabilityListener('dim', this.onCapabilityOnOffAsync.bind(this));
+		this.registerMultipleCapabilityListener(['onoff', 'dim'], ({ onoff, dim }) => {
+			this.log(onoff);
+			this.log(dim);
+			//return this.onMultipleCapabilityAsync.bind({onoff, dim});
+		});
 	}
 
     // this method is called when the Device is added
@@ -25,8 +27,40 @@ class MyDevice extends Homey.Device {
         this.log('device deleted');
     }
 
+	async onMultipleCapabilityAsync( onoff, dim ) {
+		this.log('dim')
+		this.log(dim);
+		this.log('onoff')
+		this.log(onoff);
+		
+		if (onoff === true) {
+			return this.setOnOff(true);
+		} else if (onoff === false ) {
+			return this.setOnOff(false);
+		} else {
+			return this.onCapabilityDimAsync(dim);
+		}
+	}
+	
+	async setOnOff(state) {
+		
+		let mySignal = new Homey.Signal433('my_signal');
+		
+		if (state === true ) {
+			this.log('Running setOnOff with true state');
+			mySignal.register().then(() => { 
+				mySignal.cmd('Fan_Low');
+			}).catch( this.error );
+		} else {
+			this.log('Running setOnOff with false state');
+			mySignal.register().then(() => { 
+				mySignal.cmd('Fan_Off');
+			}).catch( this.error );
+		}
+	}
+	
     // this method is called when the Device has requested a state change (turned on or off)
-    async onCapabilityDimAsync( value, opts, callback ) {
+    async onCapabilityDimAsync( value ) {
 
         // ... set value to real device
 		let mySignal = new Homey.Signal433('my_signal');
@@ -48,8 +82,6 @@ class MyDevice extends Homey.Device {
 			} else {
 				throw 'error';
 			}
-			
-			//this.setCapabilityValue('dim', value).catch(this.error);
 				
 		}).catch( this.error );
     }
@@ -62,9 +94,7 @@ class MyDevice extends Homey.Device {
 		mySignal.register().then(() => {
 			
 			mySignal.cmd('Fan_Off');
-			
-			//this.setCapabilityValue('dim', 0);
-				
+
 		}).catch( this.error );
     }
 }
